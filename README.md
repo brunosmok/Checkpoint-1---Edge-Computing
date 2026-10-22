@@ -9,7 +9,7 @@ Sistema de monitoramento de luminosidade para o ambiente de armazenamento de vin
 - Arthur Deocleciano de Araujo - RM: rm574299
 - Bruno Smoktunowicz Baptista - RM: rm574739 
 - Caio Medeiros Machado - RM: rm575113
-- Guilherme Stock - RM: 
+- Guilherme Stock - RM: rm573464
 
 ## Descrição do projeto
 
@@ -65,13 +65,11 @@ O resultado passa por `constrain()` para ficar sempre entre 0 e 100. Se o seu ci
 | 1 | Display LCD 16x2 com módulo I2C |
 | – | Jumpers |
 
-Os valores dos resistores dependem do seu circuito. Valores típicos são 220 Ω para os LEDs e 10 kΩ para o divisor do LDR.
-
 ## Ligações
 
 | Componente | Ligação no Arduino |
 |---|---|
-| LDR | Uma perna no 5V; a outra em `A0` e no resistor que vai ao GND |
+| LDR | Uma perna no GND; a outra em `A0` e no resistor que vai ao 5V |
 | LED verde | Pino `5` (via resistor até o GND) |
 | LED amarelo | Pino `4` (via resistor até o GND) |
 | LED vermelho | Pino `3` (via resistor até o GND) |
@@ -82,7 +80,7 @@ Na protoboard, uma trilha foi usada para o 5V (fios vermelhos) e outra para o GN
 
 ## Dependências
 
-- **Simulador:** [Tinkercad Circuits](https://www.tinkercad.com/circuits) (requer uma conta gratuita da Autodesk).
+- **Simulador:** [Tinkercad Circuits](https://www.tinkercad.com/things/hG2mjBpqlAf-checkpoint-1-edge-computing?sharecode=0I0xRxp9Na8MCdwOOUCTKzYQo88kExh42RFHYD9K4Jw) 
 - **Biblioteca:** `Adafruit_LiquidCrystal`, que já vem instalada no Tinkercad e controla o LCD via I2C.
 - **Linguagem:** C/C++ para Arduino.
 
@@ -98,13 +96,4 @@ Na protoboard, uma trilha foi usada para o 5V (fios vermelhos) e outra para o GN
    - luz baixa: LED verde aceso e `Status: OK`;
    - luz média: LED amarelo aceso, buzzer tocando e `Status: ALERTA`;
    - luz alta: LED vermelho aceso, buzzer mais agudo e `Status: PERIGO!`.
-8. Abra o **Monitor Serial** para ver as leituras e, se necessário, recalibrar `LDR_ESCURO` e `LDR_CLARO`.
-
-### Reprodução com hardware real
-
-O código foi escrito para o Tinkercad, onde o LCD é inicializado com `Adafruit_LiquidCrystal lcd(0)`. Em um Arduino físico, o módulo I2C mais comum usa outro chip e outra biblioteca (`LiquidCrystal_I2C`, normalmente no endereço `0x27`). Nesse caso é preciso instalar essa biblioteca pela Arduino IDE (**Sketch > Incluir Biblioteca > Gerenciar Bibliotecas**) e trocar a declaração e a inicialização do LCD no código.
-
-## Limitações e melhorias futuras
-
-- O buzzer usa `delay()`, então o Arduino não lê o sensor enquanto o alarme toca (5 s por ciclo). Uma melhoria é trocar os `delay()` por `millis()`.
-- Os próximos desafios devem incluir a medição de temperatura e umidade do ambiente.
+8. Abra o **Monitor Serial** para ver as leituras.
